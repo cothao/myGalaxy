@@ -9,29 +9,44 @@ import Settings from '../screens/Settings';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function Navbar()
+export default function Navbar(props)
 {
 
-    const style = 
+    console.log("Navbar", props.currentUser)
+
+    if (props.currentPage == "Login")
     {
-        display: "hidden"
+      const HomeComponent = (props) => <Home {...props} currentUser = {props.currentUser}/>;
+
+        return (
+            <Tab.Navigator
+                  tabBarOptions=
+                    {{
+        style: {
+          backgroundColor: '#ff0000', // Background color of tab bar
+          borderRadius: 10,
+        },
+        }}
+            >
+            <Tab.Screen style = {styles.buttons} name = "Login" component={Login}></Tab.Screen>
+            <Tab.Screen name = "Home" component={HomeComponent}></Tab.Screen>
+            <Tab.Screen  name = "Settings" component={Settings}></Tab.Screen>
+      </Tab.Navigator>
+        )
+    }
+    else
+    {
+        const HomeComponent = <Home currentUser = {props.currentUser}/>;
+        return (
+        <Tab.Navigator>
+            <Tab.Screen  name = "Login" component={Login}></Tab.Screen>
+            <Tab.Screen  name = "Home" component={HomeComponent}></Tab.Screen>
+            <Tab.Screen  name = "Settings" component={Settings}></Tab.Screen>
+      </Tab.Navigator>
+    
+        )
+
     }
 
-    return (
-    <Tab.Navigator 
-        screenOptions={({route}) =>
-        {
-            // if (route.name == "Login")
-            // {
-
-            // }
-        }}
-    >
-        <Tab.Screen  name = "Login" component={Login}></Tab.Screen>
-        <Tab.Screen  name = "Home" component={Home}></Tab.Screen>
-        <Tab.Screen  name = "Settings" component={Settings}></Tab.Screen>
-  </Tab.Navigator>
-
-    )
 
 }
