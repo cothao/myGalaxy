@@ -1,118 +1,104 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View, Image,Alert, AppState  } from 'react-native';
-import { styles } from '../style/loginStyle';
-import People from '../components/People';
-import { supabase } from '../lib/supabase';
-import { useState, useEffect } from 'react';
+import {
+  Button,
+  View,
+  Alert,
+  AppState,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
+import { styles } from "../style/loginStyle";
+import { supabase } from "../lib/supabase";
+import { useState, useEffect } from "react";
 
-AppState.addEventListener('change', (state) => {
-  if (state === 'active') {
-    supabase.auth.startAutoRefresh()
+AppState.addEventListener("change", (state) => {
+  if (state === "active") {
+    supabase.auth.startAutoRefresh();
   } else {
-    supabase.auth.stopAutoRefresh()
+    supabase.auth.stopAutoRefresh();
   }
-})
+});
 
-
-export default function Login({props, navigation})
-{
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+export default function Login({ props, navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
   const [eventData, setEventData] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const fetchEventData = async () => {
+  //     const { data, error } = await supabase.from("Events").select("*");
 
-    const fetchEventData = async () =>
-    {
-      const { data, error } = await supabase
-      .from("Events")
-      .select('*')
+  //     if (error) {
+  //       console.error("Error fetching data:", error);
+  //     } else {
+  //       setEventData(data);
+  //     }
 
-      if (error) {
-        console.error('Error fetching data:', error)
-      }
-      else
-      {
-        setEventData(data);
-      }
+  //     setLoading(false);
+  //   };
 
-    setLoading(false)
-    }
+  //   const fetchData = async () => {
+  //     const { data, error } = await supabase.from("Users").select("*");
 
-    const fetchData = async () => {
-      const { data, error } = await supabase
-        .from("Users")
-        .select('*')
+  //     if (error) {
+  //       console.error("Error fetching data:", error);
+  //     } else {
+  //       setUserData(data);
+  //     }
 
-      if (error) {
-        console.error('Error fetching data:', error)
-      }
-      else
-      {
-        setUserData(data);
-      }
+  //     setLoading(false);
+  //   };
 
-      setLoading(false)
-    }
+  //   fetchData();
+  // }, []);
 
-    fetchData()
-  }, [])
-  
-  async function signInWithEmail() 
-  {
-    setLoading(true)
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    })
+  // async function signInWithEmail() {
+  //   setLoading(true);
+  //   const { data, error } = await supabase.auth.signInWithPassword({
+  //     email: email,
+  //     password: password,
+  //   });
 
-    if (error)
-    {
-      Alert.alert(error.message);
-      setLoading(false);
-    }
-    else
-    {
-      const test = userData.find((user) => user.id == data.user.id);
-      setCurrentUser(test);
-      navigation.navigate("Home");
-    }
-  }
+  //   if (error) {
+  //     Alert.alert(error.message);
+  //     setLoading(false);
+  //   } else {
+  //     const test = userData.find((user) => user.id == data.user.id);
+  //     setCurrentUser(test);
+  //     navigation.navigate("Home");
+  //   }
+  // }
 
-    return (
-        <View style={styles.container}>
-        <View style = {styles.mainContainer}>
-          <Image source = {{url: "https://reactnative.dev/img/tiny_logo.png"}}/>
-          <TextInput 
-          placeholder='Email' 
-          style = {styles.textInput}
-          label = "Email"
-          onChangeText={(text) => setEmail(text)}
-          value = {email} 
-          ></TextInput>
-          <TextInput 
-          placeholder='Password' 
-          style = {styles.textInput}
-          onChangeText={(text) => setPassword(text)}
-          value = {password}
-          label = "Password"
-          secureTextEntry = {true}
-          ></TextInput>
-          <Button 
-            style = {{marginTop: 100}}
-            title='Login'
-            disabled = {loading}
+  return (
+    <View style={styles.mainContainer}>
+      <View style={styles.loginContainer}>
+        <Text style={styles.headerText}>Start Your</Text>
+        <Text style={styles.headerText2}>Residency Journey</Text>
+        <Text style={styles.subheaderText}>
+          Sign up or Log in to see what's
+        </Text>
+        <Text style={styles.subheaderText2}>happening with i.c.stars*</Text>
+        <ImageBackground
+          resizeMode="cover"
+          style={styles.headerImg}
+          source={require("../assets/header.png")}
+        />
+        <Text style={styles.text}>Log in to start your residency journey.</Text>
+        <View style={styles.loginBody}>
+          <Button color="#3a322d" title="Login to Account" />
+          <Button
             onPress={() => {
-              signInWithEmail()
-              // navigation.navigate("Home");
-              }}
-            ></Button>
-          {/* <StatusBar style="auto" /> */}
+              navigation.navigate("Create")
+            }}
+            color="#3a322d"
+            title="Create an Account"
+          />
         </View>
-        </View>
-    )
+      </View>
+    </View>
+  );
 }
