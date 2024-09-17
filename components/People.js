@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TextInput, View, Image, FlatList } from 'react-native';
 import { styles } from '../style/navStyle';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default function People(props)
 {
@@ -17,10 +18,10 @@ export default function People(props)
             style = 
             {
                 {
-                    marginRight: 20,
+                    marginRight: wp("5%"),
                     borderRadius: 100, 
-                    width: 40, 
-                    height: 40, 
+                    width: wp("9%"), 
+                    height: wp("9%"), 
                     borderColor: `#ffffff`, 
                     borderWidth: 2, 
                     zIndex: i,
@@ -30,7 +31,7 @@ export default function People(props)
                     justifyContent: "center",
                 }
             }>
-            <Text style = {{fontSize: 20}}>
+            <Text style = {{fontSize: wp("4%")}}>
                 {`+${props.people.length - i}`}
             </Text>
             </View>
@@ -44,10 +45,10 @@ export default function People(props)
         style = 
         {
             {
-                marginRight: -20,
+                marginRight: wp("-4%"),
                 borderRadius: 100, 
-                width: 40, 
-                height: 40, 
+                width: wp("9%"), 
+                height: wp("9%"), 
                 borderColor: `#ffffff`, 
                 borderWidth: 2, 
                 zIndex: i

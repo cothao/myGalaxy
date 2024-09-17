@@ -6,13 +6,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
+import Profile from '../screens/Profile';
+import Messages from '../screens/Messages';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function Navbar(props)
 {
 
-    console.log("Navbar", props.currentUser)
+    console.log("Navbar", props.currentUser);
 
     if (props.currentPage == "Login")
     {
@@ -21,7 +23,7 @@ export default function Navbar(props)
         return (
             <Tab.Navigator
                   tabBarOptions=
-                    {{
+        {{
         style: {
           backgroundColor: '#ff0000', // Background color of tab bar
           borderRadius: 10,
@@ -30,7 +32,8 @@ export default function Navbar(props)
             >
             <Tab.Screen style = {styles.buttons} name = "Login" component={Login}></Tab.Screen>
             <Tab.Screen name = "Home" component={HomeComponent}></Tab.Screen>
-            <Tab.Screen  name = "Settings" component={Settings}></Tab.Screen>
+            <Tab.Screen  name = "Messages" component={Messages}></Tab.Screen>
+            <Tab.Screen  name = "Profile" component={Profile}></Tab.Screen>
       </Tab.Navigator>
         )
     }

@@ -10,7 +10,8 @@ import React, {useState} from "react"
 import { styles } from './style/navStyle';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-export default function App() {
+export default function App() 
+{
 
   const [currentPage, setCurrentPage] = useState("Login");
   const [currentUser, setCurrentUser] = useState({});

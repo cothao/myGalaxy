@@ -2,6 +2,7 @@ export const styles =
 {
     margin: 20,
     display: "flex",
+    flex: 1,
     events:
     {   
 
@@ -49,11 +50,21 @@ export const styles =
 
     carousel_img:
     {
-        width: 560, 
-        height: 295,
-        borderRadius: 20,
-        backgroundColor: "#ff0000",
-        resizeMode: "cover",
+        // width: 560, 
+        // backgroundColor: "#ff0000",
+        // resizeMode: "cover",
+    },
+
+    Location:
+    {
+        fontSize: 20,
+    },
+
+    ChangeLocation:
+    {
+        display: "flex",
+        gap: 300,
+        flexDirection: "row",
     }
 
 }
